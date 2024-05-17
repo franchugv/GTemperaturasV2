@@ -121,6 +121,9 @@ namespace GTemperaturasV2
 
         }
 
+
+
+
         private void Temperaturas_Load(object sender, EventArgs e)
         {
 
@@ -157,6 +160,7 @@ namespace GTemperaturasV2
 
         private void CargarCiudades()
         {
+            // Hay que limpiar la lista de ciudades para que no se solapen
             comboBoxListaCiudades.Items.Clear();
             comboBoxListaCiudades.Items.AddRange(API.APIFichero.ConsultarDirectorio());
         }
@@ -177,6 +181,7 @@ namespace GTemperaturasV2
             buttonAgregarCiudad.Enabled = false;
             buttonGuardarTemp.Enabled = false;
 
+            // Limpiar el ListBox para que no se solape con el anteriror
             listBoxTemperatura.Items.Clear();
 
             try
