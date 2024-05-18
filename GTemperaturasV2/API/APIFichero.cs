@@ -18,6 +18,9 @@ namespace GTemperaturasV2.API
         // MÉTODOS PUBLICOS
 
         #region Creación Ficheros
+        /// <summary>
+        /// Crear Directorio en caso de que no exista
+        /// </summary>
         public static void CrearDirectorio()
         {
             if (!Directory.Exists(DIRECTORIO))
@@ -26,6 +29,10 @@ namespace GTemperaturasV2.API
             }
         }
 
+        /// <summary>
+        /// Crear fichero con un nombre seleccionado
+        /// </summary>
+        /// <param name="nombre">Nombre de el fichero</param>
         public static void CrearFichero(string nombre)
         {
             // Recursos
@@ -48,6 +55,11 @@ namespace GTemperaturasV2.API
 
 
         #region Escribir Ficheros
+        /// <summary>
+        /// Agregar lista de temperaturas a un fichero en concreto
+        /// </summary>
+        /// <param name="nombre">Nombre de el fichero</param>
+        /// <param name="ListaTemperaturas">Lista de temperaturas a añadir</param>
         public static void AgregarTemperaturas(string nombre, string[] ListaTemperaturas)
         {
             // Recursos
@@ -70,6 +82,10 @@ namespace GTemperaturasV2.API
 
         #region Consultas
 
+        /// <summary>
+        /// Consultar Directorio
+        /// </summary>
+        /// <returns>Array con el contenido del directorio</returns>
         public static string[] ConsultarDirectorio()
         {
             // Recursos
@@ -97,6 +113,11 @@ namespace GTemperaturasV2.API
         }
 
 
+        /// <summary>
+        /// Consultar fichero seleccionado
+        /// </summary>
+        /// <param name="nombre">Nombre de el fichero</param>
+        /// <returns>Array con el contenido del fichero</returns>
         public static string[] ConsultarFichero(string nombre)
         {
             // Recursos
@@ -110,11 +131,16 @@ namespace GTemperaturasV2.API
 
         #endregion
 
+        /// <summary>
+        /// Verificar que no exista el fichero
+        /// </summary>
+        /// <param name="fichero">Nombre de el fichero</param>
+        /// <exception cref="Exception">Fichero repetido</exception>
         public static void VerificarExistencia(string fichero)
         {
             string aux = "";
 
-            // Remover mayusculas y espacios
+            // Remover mayúsculas y espacios
             fichero = fichero.ToLower().Trim();
 
             foreach(string cadena in ConsultarDirectorio())
