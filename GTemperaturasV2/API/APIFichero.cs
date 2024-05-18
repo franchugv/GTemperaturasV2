@@ -44,7 +44,6 @@ namespace GTemperaturasV2.API
             }
 
         }
-
         #endregion
 
 

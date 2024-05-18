@@ -39,6 +39,7 @@ namespace GTemperaturasV2
                         break;
                     case "buttonGuardarTemp":
                         GuardarTemperatura();
+                        textBoxAgregarTemp.Text = "";
                         break;
                 }
             }
@@ -71,32 +72,43 @@ namespace GTemperaturasV2
         {
             string [] ListTemp = listBoxTemperatura.Items.Cast<string>().ToArray();
 
+            // En caso de que haya menos de 12 temperaturas no podremos agregar nada
             if (listBoxTemperatura.Items.Count < 12) throw new Exception("Hay menos de 12 temperaturas");
          
-
+            // Agregamos el Array que el la lista de temperaturas del ListBox al fichero seleccionado con el ComboBox
             APIFichero.AgregarTemperaturas(comboBoxListaCiudades.Text, ListTemp);
 
-            
+
+            UI.MostrarMensaje($"La lista a sido agregada correctamente a la ciudad {comboBoxListaCiudades.Text}");
+
+
         }
 
         // Agregar al listBox
         private void AgregarTemperatura()
         {
+            int aux = 0;
+            // Comprobar que sea un número
+            if(!Int32.TryParse(textBoxAgregarTemp.Text, out aux)) throw new Exception("Solo caracteres numéricos");
 
-            if (listBoxTemperatura.Items.Count == 12)
-            {
-                listBoxTemperatura.Items.Clear();
-            }
-            // Inicializamos el boton a false, si todo es correcto se inicializara a true
+            // Si intentamos añadir mas temperaturas, la lista de reseteará
+            if (listBoxTemperatura.Items.Count == 12) listBoxTemperatura.Items.Clear();
+
+            // Inicializamos el botón a false, si todo es correcto se inicializara a true
             buttonAgregarTemp.Enabled = false;
 
+            // Si hay 12 temperaturas o menos el botón seguirá activo,
+            // en caso contrario se quedará false ya que lo inicializamos a false anteriormente
             if (listBoxTemperatura.Items.Count <= 10)
             {
                 buttonAgregarTemp.Enabled = true;
             }
 
+            // Agregamos el contenido del texto a la lista
             listBoxTemperatura.Items.Add(textBoxAgregarTemp.Text);
 
+            // Lo limpiamos para que sea mas cómodo
+            textBoxAgregarTemp.Clear();
 
         }
 
@@ -107,7 +119,7 @@ namespace GTemperaturasV2
             // Validar que no sea cadena vacía
             if (string.IsNullOrEmpty(textBoxAgregarCiudad.Text)) throw new Exception("Cadena vacía");
 
-            // Limpiar ComboBos Ciudades
+            // Limpiar ComboBox Ciudades
             comboBoxListaCiudades.Items.Clear();
 
             // Crear Fichero
@@ -116,8 +128,14 @@ namespace GTemperaturasV2
             // Añadir contenido al ComboBox
             CargarCiudades();
 
+            // Mostramos un mensaje de que se a agregado correctamente
+            UI.MostrarMensaje($"La ciudad {textBoxAgregarCiudad.Text} a sido agregada correctamente");
+
+
             // Limpiar Texto
             textBoxAgregarCiudad.Text = "";
+
+
 
         }
 
@@ -136,9 +154,12 @@ namespace GTemperaturasV2
 
             try
             {
+                // Cargamos las ciudades cada vez que se inicie el programa
+                // y además comprobamos el el directorio esté creado correctamente
+                APIFichero.CrearDirectorio();
+
                 CargarCiudades();
 
-                APIFichero.CrearDirectorio();
             }
             catch (Exception error)
             {
@@ -162,6 +183,8 @@ namespace GTemperaturasV2
         {
             // Hay que limpiar la lista de ciudades para que no se solapen
             comboBoxListaCiudades.Items.Clear();
+
+            // Agregamos el contendido del fichero a la lista
             comboBoxListaCiudades.Items.AddRange(API.APIFichero.ConsultarDirectorio());
         }
 
@@ -181,12 +204,12 @@ namespace GTemperaturasV2
             buttonAgregarCiudad.Enabled = false;
             buttonGuardarTemp.Enabled = false;
 
-            // Limpiar el ListBox para que no se solape con el anteriror
+            // Limpiar el ListBox para que no se solape con el anterior
             listBoxTemperatura.Items.Clear();
 
             try
             {
-                // Cargar temperaturas
+                // Cargar temperaturas de la ciudad seleccionada usando el contenido de su fichero
                 listBoxTemperatura.Items.AddRange(APIFichero.ConsultarFichero(comboBoxListaCiudades.Text));
 
             }
