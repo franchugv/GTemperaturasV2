@@ -81,6 +81,7 @@ namespace GTemperaturasV2
 
             UI.MostrarMensaje($"La lista a sido agregada correctamente a la ciudad {comboBoxListaCiudades.Text}");
 
+            listBoxTemperatura.Items.Clear();
 
         }
 

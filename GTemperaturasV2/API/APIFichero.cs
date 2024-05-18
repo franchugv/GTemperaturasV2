@@ -135,7 +135,7 @@ namespace GTemperaturasV2.API
                 ListaTemp[indice] = $"Mes {ListaMeses[indice]} - "+ Lector.ReadLine() + " Cº";
             }
 
-
+            Lector.Close();
 
 
 
