@@ -98,6 +98,8 @@ namespace GTemperaturasV2
             // Inicializamos el botón a false, si todo es correcto se inicializara a true
             buttonAgregarTemp.Enabled = false;
 
+
+
             // Si hay 12 temperaturas o menos el botón seguirá activo,
             // en caso contrario se quedará false ya que lo inicializamos a false anteriormente
             if (listBoxTemperatura.Items.Count <= 10)
