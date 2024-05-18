@@ -112,7 +112,6 @@ namespace GTemperaturasV2.API
 
         }
 
-
         /// <summary>
         /// Consultar fichero seleccionado
         /// </summary>
@@ -122,8 +121,22 @@ namespace GTemperaturasV2.API
         {
             // Recursos
             string[] ListaTemp;
+            StreamReader Lector = null;
+            string[] ListaMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
 
-            ListaTemp = File.ReadAllLines(DIRECTORIO+nombre+EXTENSION);
+
+
+            Lector = File.OpenText(DIRECTORIO+nombre+EXTENSION);
+            ListaTemp = File.ReadAllLines(DIRECTORIO + nombre + EXTENSION); // Esto lo hago para saber la longitud del fichero
+
+
+            for (int indice = 0;indice < ListaTemp.Length; indice++)
+            {
+                ListaTemp[indice] = $"Mes {ListaMeses[indice]} - "+ Lector.ReadLine() + " Cº";
+            }
+
+
+
 
 
             return ListaTemp;
