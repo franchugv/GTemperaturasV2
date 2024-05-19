@@ -95,6 +95,8 @@ namespace GTemperaturasV2
 
             result = sumaTemp / TotalTemp;
 
+            if (result == 0) throw new Exception("Cadena vacía");
+
             textBoxMediaAnual.Text = result.ToString() + "Cº";
 
         }
