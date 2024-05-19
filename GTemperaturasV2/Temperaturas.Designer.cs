@@ -35,10 +35,14 @@
             this.textBoxAgregarTemp = new System.Windows.Forms.TextBox();
             this.labelListaCiudades = new System.Windows.Forms.Label();
             this.comboBoxListaCiudades = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.labelListaTemp = new System.Windows.Forms.Label();
+            this.labelAgregarTemp = new System.Windows.Forms.Label();
             this.buttonAgregarTemp = new System.Windows.Forms.Button();
             this.buttonGuardarTemp = new System.Windows.Forms.Button();
+            this.LabelContadorMes = new System.Windows.Forms.Label();
+            this.labelMediaAnual = new System.Windows.Forms.Label();
+            this.textBoxMediaAnual = new System.Windows.Forms.TextBox();
+            this.buttonMediaAnual = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonAgregarCiudad
@@ -74,6 +78,7 @@
             this.textBoxAgregarCiudad.Name = "textBoxAgregarCiudad";
             this.textBoxAgregarCiudad.Size = new System.Drawing.Size(134, 20);
             this.textBoxAgregarCiudad.TabIndex = 3;
+            this.textBoxAgregarCiudad.TextChanged += new System.EventHandler(this.textBoxAgregarCiudad_TextChanged);
             // 
             // textBoxAgregarTemp
             // 
@@ -100,23 +105,23 @@
             this.comboBoxListaCiudades.TabIndex = 6;
             this.comboBoxListaCiudades.SelectedIndexChanged += new System.EventHandler(this.comboBoxListaCiudades_SelectedIndexChanged);
             // 
-            // label1
+            // labelListaTemp
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(48, 194);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(100, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Lista Temperaturas:";
+            this.labelListaTemp.AutoSize = true;
+            this.labelListaTemp.Location = new System.Drawing.Point(48, 194);
+            this.labelListaTemp.Name = "labelListaTemp";
+            this.labelListaTemp.Size = new System.Drawing.Size(100, 13);
+            this.labelListaTemp.TabIndex = 7;
+            this.labelListaTemp.Text = "Lista Temperaturas:";
             // 
-            // label2
+            // labelAgregarTemp
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(47, 136);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(135, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "Lista Agregar Temperatura:";
+            this.labelAgregarTemp.AutoSize = true;
+            this.labelAgregarTemp.Location = new System.Drawing.Point(47, 136);
+            this.labelAgregarTemp.Name = "labelAgregarTemp";
+            this.labelAgregarTemp.Size = new System.Drawing.Size(135, 13);
+            this.labelAgregarTemp.TabIndex = 8;
+            this.labelAgregarTemp.Text = "Lista Agregar Temperatura:";
             // 
             // buttonAgregarTemp
             // 
@@ -140,15 +145,55 @@
             this.buttonGuardarTemp.UseVisualStyleBackColor = true;
             this.buttonGuardarTemp.Click += new System.EventHandler(this.Controlador_Click);
             // 
+            // LabelContadorMes
+            // 
+            this.LabelContadorMes.AutoSize = true;
+            this.LabelContadorMes.Location = new System.Drawing.Point(48, 226);
+            this.LabelContadorMes.Name = "LabelContadorMes";
+            this.LabelContadorMes.Size = new System.Drawing.Size(30, 13);
+            this.LabelContadorMes.TabIndex = 11;
+            this.LabelContadorMes.Text = "Mes:";
+            // 
+            // labelMediaAnual
+            // 
+            this.labelMediaAnual.AutoSize = true;
+            this.labelMediaAnual.Location = new System.Drawing.Point(48, 344);
+            this.labelMediaAnual.Name = "labelMediaAnual";
+            this.labelMediaAnual.Size = new System.Drawing.Size(69, 13);
+            this.labelMediaAnual.TabIndex = 12;
+            this.labelMediaAnual.Text = "Media Anual:";
+            // 
+            // textBoxMediaAnual
+            // 
+            this.textBoxMediaAnual.Location = new System.Drawing.Point(198, 344);
+            this.textBoxMediaAnual.Name = "textBoxMediaAnual";
+            this.textBoxMediaAnual.Size = new System.Drawing.Size(132, 20);
+            this.textBoxMediaAnual.TabIndex = 13;
+            // 
+            // buttonMediaAnual
+            // 
+            this.buttonMediaAnual.Enabled = false;
+            this.buttonMediaAnual.Location = new System.Drawing.Point(359, 342);
+            this.buttonMediaAnual.Name = "buttonMediaAnual";
+            this.buttonMediaAnual.Size = new System.Drawing.Size(123, 23);
+            this.buttonMediaAnual.TabIndex = 14;
+            this.buttonMediaAnual.Text = "Media Anual";
+            this.buttonMediaAnual.UseVisualStyleBackColor = true;
+            this.buttonMediaAnual.Click += new System.EventHandler(this.Controlador_Click);
+            // 
             // Temperaturas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 353);
+            this.ClientSize = new System.Drawing.Size(566, 420);
+            this.Controls.Add(this.buttonMediaAnual);
+            this.Controls.Add(this.textBoxMediaAnual);
+            this.Controls.Add(this.labelMediaAnual);
+            this.Controls.Add(this.LabelContadorMes);
             this.Controls.Add(this.buttonGuardarTemp);
             this.Controls.Add(this.buttonAgregarTemp);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelAgregarTemp);
+            this.Controls.Add(this.labelListaTemp);
             this.Controls.Add(this.comboBoxListaCiudades);
             this.Controls.Add(this.textBoxAgregarTemp);
             this.Controls.Add(this.labelListaCiudades);
@@ -172,10 +217,14 @@
         private System.Windows.Forms.TextBox textBoxAgregarTemp;
         private System.Windows.Forms.Label labelListaCiudades;
         private System.Windows.Forms.ComboBox comboBoxListaCiudades;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label labelListaTemp;
+        private System.Windows.Forms.Label labelAgregarTemp;
         private System.Windows.Forms.Button buttonAgregarTemp;
         private System.Windows.Forms.Button buttonGuardarTemp;
+        private System.Windows.Forms.Label LabelContadorMes;
+        private System.Windows.Forms.Label labelMediaAnual;
+        private System.Windows.Forms.TextBox textBoxMediaAnual;
+        private System.Windows.Forms.Button buttonMediaAnual;
     }
 }
 

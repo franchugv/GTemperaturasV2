@@ -142,6 +142,23 @@ namespace GTemperaturasV2.API
             return ListaTemp;
         }
 
+
+
+
+        public static string[] ConsultarFicheroSinFormato(string nombre)
+        {
+            // Recursos
+            string[] ListaTemp;
+
+
+            ListaTemp = File.ReadAllLines(DIRECTORIO + nombre + EXTENSION); // Esto lo hago para saber la longitud del fichero
+
+
+
+            return ListaTemp;
+        }
+
+
         #endregion
 
         /// <summary>

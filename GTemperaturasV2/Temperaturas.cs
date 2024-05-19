@@ -41,6 +41,9 @@ namespace GTemperaturasV2
                         GuardarTemperatura();
                         textBoxAgregarTemp.Text = "";
                         break;
+                    case "buttonMediaAnual":
+                        MediaAnual();
+                        break;
                 }
             }
             catch (Exception error)
@@ -67,10 +70,50 @@ namespace GTemperaturasV2
             }           
         }
 
+
+        private void MediaAnual()
+        {
+            string[]ListaTemp = APIFichero.ConsultarFicheroSinFormato(comboBoxListaCiudades.Text).Cast<string>().ToArray(); // Lista Temperaturas
+
+            float temperaturaActual;
+
+            float TotalTemp = listBoxTemperatura.Items.Count;
+
+            float sumaTemp = 0;
+            float result = 0;
+
+
+
+            // Calculo
+
+            for(int indice = 0; indice < ListaTemp.Length; indice++)
+            {
+                temperaturaActual = Convert.ToSingle(ListaTemp[indice]);
+
+                sumaTemp += temperaturaActual;
+            }
+
+            result = sumaTemp / TotalTemp;
+
+            textBoxMediaAnual.Text = result.ToString() + "Cº";
+
+        }
+
+
+
+
         // Agregar al fichero
         private void GuardarTemperatura()
         {
             string [] ListTemp = listBoxTemperatura.Items.Cast<string>().ToArray();
+            int aux = 0;
+
+            // Validar que sea numerico
+            for(int indice = 0; indice < ListTemp.Length; indice++)
+            {
+                if (!Int32.TryParse(ListTemp[indice], out aux)) throw new Exception("Solo caracteres numéricos");
+
+            }
 
             // En caso de que haya menos de 12 temperaturas no podremos agregar nada
             if (listBoxTemperatura.Items.Count < 12) throw new Exception("Hay menos de 12 temperaturas");
@@ -93,13 +136,14 @@ namespace GTemperaturasV2
             if(!Int32.TryParse(textBoxAgregarTemp.Text, out aux)) throw new Exception("Solo caracteres numéricos");
 
             // Si intentamos añadir mas temperaturas, la lista de reseteará
-            if (listBoxTemperatura.Items.Count == 12) listBoxTemperatura.Items.Clear();
+            if (listBoxTemperatura.Items.Count == 12) 
+            {
+                listBoxTemperatura.Items.Clear();
+                LabelContadorMes.Text = "Mes: ";
+            } 
 
             // Inicializamos el botón a false, si todo es correcto se inicializara a true
             buttonAgregarTemp.Enabled = false;
-
-
-
             // Si hay 12 temperaturas o menos el botón seguirá activo,
             // en caso contrario se quedará false ya que lo inicializamos a false anteriormente
 
@@ -109,8 +153,11 @@ namespace GTemperaturasV2
                 buttonAgregarTemp.Enabled = true;
             }
 
+
             // Agregamos el contenido del texto a la lista
             listBoxTemperatura.Items.Add(textBoxAgregarTemp.Text);
+
+            LabelContadorMes.Text = $"Mes: {listBoxTemperatura.Items.Count}";
 
             // Lo limpiamos para que sea mas cómodo
             textBoxAgregarTemp.Clear();
@@ -136,11 +183,8 @@ namespace GTemperaturasV2
             // Mostramos un mensaje de que se a agregado correctamente
             UI.MostrarMensaje($"La ciudad {textBoxAgregarCiudad.Text} a sido agregada correctamente");
 
-
             // Limpiar Texto
             textBoxAgregarCiudad.Text = "";
-
-
 
         }
 
@@ -225,6 +269,7 @@ namespace GTemperaturasV2
             }
             finally
             {
+
                 if (!esValido)
                 {
                     UI.MostrarError(MensajeError);
@@ -240,7 +285,54 @@ namespace GTemperaturasV2
                     buttonAgregarTemp .Enabled = true;
                     buttonAgregarCiudad.Enabled = true;
                     buttonGuardarTemp.Enabled = true;
+
+                    if (listBoxTemperatura.Items.Count == 12)
+                    {
+                        buttonMediaAnual.Enabled = true;
+                    }
                 }
+
+
+            }
+        }
+
+        private void textBoxAgregarCiudad_TextChanged(object sender, EventArgs e)
+        {
+            // Recursos
+
+
+
+            bool esValido = true;
+            string MensajeError = "";
+
+
+
+            try
+            {
+
+               
+
+                if (!string.IsNullOrEmpty(textBoxAgregarCiudad.Text))
+                {
+                    comboBoxListaCiudades.Text = textBoxAgregarCiudad.Text;
+                }
+
+            }
+            catch (Exception error)
+            {
+                esValido = false;
+                MensajeError = error.Message;
+            }
+            finally
+            {
+
+                if (!esValido)
+                {
+                    UI.MostrarError(MensajeError);
+
+                   
+                }
+
 
             }
         }
