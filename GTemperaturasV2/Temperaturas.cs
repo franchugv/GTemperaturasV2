@@ -39,7 +39,6 @@ namespace GTemperaturasV2
                         break;
                     case "buttonGuardarTemp":
                         GuardarTemperatura();
-                        textBoxAgregarTemp.Text = "";
                         break;
                     case "buttonMediaAnual":
                         MediaAnual();
@@ -127,6 +126,8 @@ namespace GTemperaturasV2
             UI.MostrarMensaje($"La lista a sido agregada correctamente a la ciudad {comboBoxListaCiudades.Text}");
 
             listBoxTemperatura.Items.Clear();
+            textBoxAgregarTemp.Text = "";
+
 
         }
 
