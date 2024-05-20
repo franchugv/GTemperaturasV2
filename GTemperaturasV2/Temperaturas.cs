@@ -113,7 +113,6 @@ namespace GTemperaturasV2
             for(int indice = 0; indice < ListTemp.Length; indice++)
             {
                 if (!Int32.TryParse(ListTemp[indice], out aux)) throw new Exception("Solo caracteres numéricos");
-
             }
 
             // En caso de que haya menos de 12 temperaturas no podremos agregar nada
